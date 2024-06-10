@@ -1,6 +1,6 @@
-﻿using Ghost.Common;
-using Ghost.Common.Enum;
-using Ghost.Common.Models;
+﻿using Ghost.Infrastructure.Models;
+using Ghost.Infrastructure.Models.Enum;
+using Ghost.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 
 namespace Ghost.Infrastructure.Persistence.Repositories;
