@@ -1,21 +1,22 @@
-﻿using Ghost.Common.Enum;
+﻿using Ghost.Common;
+using Ghost.Common.Enum;
 using Ghost.Common.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace Ghost.Infrastructure.Persistence.Repositories;
 
-public class PromptRepository
+public class PromptRepository : IPromptRepository
 {
     private readonly IConfiguration _configuration;
 
     public PromptRepository(IConfiguration configuration)
     {
-        this._configuration = configuration;
+        _configuration = configuration;
     }
 
-    public Prompt GetPromptByName(string templateName)
+    public Prompt GetPromptByName(PromptType promptType)
     {
-        return _configuration.GetSection($"{nameof(PromptType)}:{templateName}").Get<Prompt>() ??
-            throw new InvalidOperationException($"The template for {templateName} is not configured in appsettings.json.");
+        return _configuration.GetSection($"{nameof(PromptType)}:{nameof(promptType)}").Get<Prompt>() ??
+            throw new InvalidOperationException($"The template for {nameof(promptType)} is not configured in appsettings.json.");
     }
 }
