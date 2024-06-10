@@ -1,4 +1,4 @@
-﻿namespace Ghost.Common.Models;
+﻿namespace Ghost.Infrastructure.Models;
 
 public class Prompt
 {
