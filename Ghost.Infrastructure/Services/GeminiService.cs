@@ -1,10 +1,11 @@
-﻿using Ghost.Infrastructure.Factories;
+﻿using Ghost.Common.Services;
+using Ghost.Infrastructure.Factories;
 using Ghost.Infrastructure.Models.Enum;
 using Library.Api.v1;
 
 namespace Ghost.Infrastructure.Services;
 
-public class GeminiService
+public class GeminiService : IGeminiService
 {
     private readonly IGeminiClient _gemini;
     private readonly IPromptFactory _promptFactory;

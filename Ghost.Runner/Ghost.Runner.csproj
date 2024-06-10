@@ -7,4 +7,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Cocona" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ghost.Application\Ghost.Application.csproj" />
+    <ProjectReference Include="..\Ghost.Infrastructure\Ghost.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,11 +1,14 @@
 ﻿using Cocona;
+using Ghost.Application.Commands;
 
 namespace Ghost.Application;
 
 public static class DependencyInjection
 {
-    public static CoconaApp RegisterApplicationLayerCommands(this CoconaApp services)
+    public static CoconaApp RegisterApplicationLayerCommands(this CoconaApp app)
     {
-        return services;
+        app.AddCommands<ConfigurationCommand>();
+        app.AddCommands<CommitCommand>();
+        return app;
     }
 }
