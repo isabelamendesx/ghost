@@ -23,13 +23,13 @@ public class PromptFactory : IPromptFactory
 
     public string CreateCommitStartingWithCodePrompt(string stagedChanges, string code)
     {
-        var template = _repository.GetPromptByName(PromptType.Conventional);
+        var template = _repository.GetPromptByName(PromptType.StartingWithCode);
         return BuildPrompt(template, stagedChanges, code);
     }
 
     public string CreateCustomCommitPrompt(string stagedChanges)
     {
-        var template = _repository.GetPromptByName(PromptType.Conventional);
+        var template = _repository.GetPromptByName(PromptType.Custom);
         return BuildPrompt(template, stagedChanges);
     }
 
