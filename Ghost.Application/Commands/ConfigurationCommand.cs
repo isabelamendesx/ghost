@@ -8,19 +8,20 @@ public sealed class ConfigurationCommand
 {
     [Command("config", Description = "Handles configuration settings for the application.")]
     public void Handle(
-        [Argument(Description = "The configuration option to set. Valid options are: apikey.")] string option
+        [Argument(Description = "The configuration option to set. Valid options are: apikey.")]
+        string option
         )
     {
         Action action = option.ToLower() switch
         {
-            "apikey" => () => SetApiKey(),
+            "apikey" => () => TrySetApiKey(),
             _ => () => Console.WriteLine("Invalid option. Valid options are: apikey")
         };
 
         action();
     }
 
-    private void SetApiKey()
+    private void TrySetApiKey()
     {
         Console.WriteLine("enter your API Key:");
         string apiKey = SecretReader.Read();
