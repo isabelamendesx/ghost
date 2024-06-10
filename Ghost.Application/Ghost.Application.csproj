@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Cocona" Version="2.2.0" />
+    <PackageReference Include="gemini-client-sdk" Version="1.0.0-beta" />
   </ItemGroup>
 
   <ItemGroup>

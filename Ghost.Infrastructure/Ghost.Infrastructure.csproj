@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="CliWrap" Version="3.6.6" />
     <PackageReference Include="Cocona" Version="2.2.0" />
+    <PackageReference Include="gemini-client-sdk" Version="1.0.0-beta" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
