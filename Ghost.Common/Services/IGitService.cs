@@ -1,4 +1,4 @@
-﻿namespace Ghost.Common.Services;
+﻿namespace Ghost.Infrastructure.Services;
 
 public interface IGitService
 {

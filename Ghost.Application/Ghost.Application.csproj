@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ghost.Common\Ghost.Common.csproj" />
+    <ProjectReference Include="..\Ghost.Infrastructure\Ghost.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
