@@ -1,4 +1,4 @@
-﻿namespace Ghost.Common.Factories;
+﻿namespace Ghost.Infrastructure.Factories;
 
 public interface IPromptFactory
 {

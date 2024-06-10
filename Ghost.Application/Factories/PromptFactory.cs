@@ -1,7 +1,7 @@
-﻿using Ghost.Common;
-using Ghost.Common.Enum;
-using Ghost.Common.Factories;
-using Ghost.Common.Models;
+﻿using Ghost.Infrastructure.Factories;
+using Ghost.Infrastructure.Models;
+using Ghost.Infrastructure.Models.Enum;
+using Ghost.Infrastructure.Repositories;
 using System.Text;
 
 namespace Ghost.Application.Factories;
