@@ -1,7 +1,7 @@
 ﻿using Cocona;
-using Ghost.Application.Commands;
+using Ghost.Infrastructure.Commands;
 
-namespace Ghost.Application;
+namespace Ghost.Infrastructure;
 
 public static class DependencyInjection
 {

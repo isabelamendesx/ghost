@@ -1,4 +1,7 @@
 ﻿using Ghost.Common.Services;
+using Ghost.Infrastructure.Factories;
+using Ghost.Infrastructure.Persistence.Repositories;
+using Ghost.Infrastructure.Repositories;
 using Ghost.Infrastructure.Services;
 using Library;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +16,8 @@ public static class DependencyInjection
         services.AddGeminiClient(configuration);
         services.AddSingleton<IGeminiService, GeminiService>();
         services.AddSingleton<IGitService, GitService>();
+        services.AddSingleton<IPromptFactory, PromptFactory>();
+        services.AddSingleton<IPromptRepository, PromptRepository>();
 
         return services;
     }
