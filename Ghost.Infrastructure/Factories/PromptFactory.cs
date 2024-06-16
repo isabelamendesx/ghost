@@ -4,7 +4,7 @@ using Ghost.Infrastructure.Models.Enum;
 using Ghost.Infrastructure.Repositories;
 using System.Text;
 
-namespace Ghost.Application.Factories;
+namespace Ghost.Infrastructure.Factories;
 
 public class PromptFactory : IPromptFactory
 {
