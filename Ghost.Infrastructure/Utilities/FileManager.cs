@@ -1,4 +1,8 @@
-﻿namespace Ghost.Infrastructure.Utilities;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using System.IO;
+
+namespace Ghost.Infrastructure.Utilities;
 
 public static class FileManager
 {
@@ -16,6 +20,6 @@ public static class FileManager
     {
         if (File.Exists(filePath)) return true;
 
-        throw new FileNotFoundException($"File {fileName} not found: {filePath}");
+        throw new FileNotFoundException($"The configuration file {fileName} was not found and is not optional.The expected physical path was: {filePath}");
     }
 }

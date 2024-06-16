@@ -16,7 +16,7 @@ public static class JsonFileManager
     {
         if (config[section] != null)
             config[section]![key] = value;
-
+        else
         throw new InvalidOperationException($"The section {section} is not configured in the configuration file.");
     }
 
