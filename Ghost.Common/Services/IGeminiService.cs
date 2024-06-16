@@ -4,5 +4,5 @@ namespace Ghost.Common.Services;
 
 public interface IGeminiService
 {
-    Task<string> GetCommitMessage(PromptType promptType, string stagedChanges, string? code = null);
+    Task<List<string>> GetCommitMessages(PromptType promptType, string stagedChanges, string? code = null);
 }
