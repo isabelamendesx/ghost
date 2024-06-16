@@ -17,12 +17,12 @@ public class ExceptionHandlingFilterAttribute : CommandFilterAttribute
         }
         catch (HttpRequestException)
         {
-            Console.WriteLine("API request failed. Pleasexxxxxxxxxxxxx check your network connection and try again.");
+            Console.WriteLine("API request failed. Please check your network connection and try again.");
             return 1;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"{ex.Message}An unexpected error ocurred");
+            Console.WriteLine($"An unexpected error ocurred, please try again");
             return 1;
         }
     }
