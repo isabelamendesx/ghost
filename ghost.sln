@@ -15,13 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{3C81D3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runner", "Runner", "{BF9C0439-456F-4F4E-B095-CC847BBAC0CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghost.Application", "Ghost.Application\Ghost.Application.csproj", "{AC14ACF4-32B6-4B6B-A5EA-57C1E85E3C30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ghost.Application", "Ghost.Application\Ghost.Application.csproj", "{AC14ACF4-32B6-4B6B-A5EA-57C1E85E3C30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghost.Infrastructure", "Ghost.Infrastructure\Ghost.Infrastructure.csproj", "{34AD40D7-AB10-4162-8568-2C99A563A74A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ghost.Infrastructure", "Ghost.Infrastructure\Ghost.Infrastructure.csproj", "{34AD40D7-AB10-4162-8568-2C99A563A74A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghost.Runner", "Ghost.Runner\Ghost.Runner.csproj", "{82228E88-1C22-469F-BC6D-DEABDB72AA00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ghost.Runner", "Ghost.Runner\Ghost.Runner.csproj", "{82228E88-1C22-469F-BC6D-DEABDB72AA00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghost.Common", "Ghost.Common\Ghost.Common.csproj", "{240C9FDC-80BA-4601-91B2-5BF59AB505EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ghost.Common", "Ghost.Common\Ghost.Common.csproj", "{240C9FDC-80BA-4601-91B2-5BF59AB505EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
