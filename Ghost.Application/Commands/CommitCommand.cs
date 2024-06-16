@@ -1,63 +1,61 @@
 ﻿using Cocona;
+using Figgle;
+using Ghost.Application.Filters;
+using Ghost.Application.UseCases.EditMessage;
+using Ghost.Application.UseCases.PickMessage;
+using Ghost.Application.UseCases.ReviewMessage;
 using Ghost.Common.Services;
 using Ghost.Infrastructure.Models.Enum;
 using Ghost.Infrastructure.Services;
+using MediatR;
+using Microsoft.Extensions.Options;
+using System.Text;
 
-namespace Ghost.Application.Commands;
+namespace Ghost.Infrastructure.Commands;
 
 public sealed class CommitCommand
 {
     private readonly IGeminiService _geminiService;
     private readonly IGitService _gitService;
+    private readonly IMediator _mediator;
 
-    public CommitCommand(IGitService gitService, IGeminiService geminiService)
+    public CommitCommand(IGitService gitService, IGeminiService geminiService, IMediator mediator)
     {
         _gitService = gitService;
         _geminiService = geminiService;
+        _mediator = mediator;
     }
 
+    [PreExecutionFilter]
     [Command("commit", Description = "Handles the commit process with the staged changes.")]
-    public async Task Handle(
-            [Option(Description = "An optional code that, if provided, will be the start of your commit message.")] 
+    public async Task Handle
+        (
+            [Option(Description = "An optional code that, if provided, will be the start of your commit message.")]
             string? code,
-            [Option(Description = "A flag indicating whether the Ghost should use the custom prompt or not.")] 
-            bool custom = false)
+            [Option(Description = "A flag indicating whether the Ghost should use the custom prompt or not.")]
+            bool custom = false
+        )
     {
-       var stagedChanges = await _gitService.GetStagedChangesAsync();
-       var promptType = FindPromptType(code, custom);
+        var stagedChanges = await _gitService.GetStagedChangesAsync();
+        var promptType = FindPromptType(code, custom);
 
-            await ProcessCommitMessage(promptType, stagedChanges, code);
+        await ProcessCommitMessage(promptType, stagedChanges, code);
     }
 
     private async Task ProcessCommitMessage(PromptType promptType, string stagedChanges, string? code)
     {
-        while (true)
-        {
-            Console.Clear();
+        Console.WriteLine(FiggleFonts.Standard.Render("Ghost."));
 
-            var message = await _geminiService.GetCommitMessage(promptType, stagedChanges, code);
+        var messages = await _geminiService.GetCommitMessages(promptType, stagedChanges, code);
 
-            Console.WriteLine(message);
+        var selectedMessage = await _mediator.Send(new PickMessageCommand { Messages = messages });
 
-            Console.Write("Approve commit message? (y/n/r to regenerate): ");
-            var input = Console.ReadLine()?.Trim().ToLower();
+        var result = await _mediator.Send(new ReviewMessageCommand(selectedMessage));
 
-            if (input == "y")
-            {
-                await _gitService.CommitChangesAsync(message);
-                Console.WriteLine("Changes committed successfully.");
-                break;
-            }
-            else if (input == "r")
-            {
-                continue;
-            }
-            else
-            {
-                Console.WriteLine("Commit aborted.");
-                break;
-            }
-        }
+        if(result) 
+            Console.WriteLine("\n✅ Changes committed successfully!");
+        else 
+            Console.WriteLine("\n👻 Commit aborted");
     }
 
     private PromptType FindPromptType(string? code, bool custom)
@@ -66,5 +64,4 @@ public sealed class CommitCommand
         if (custom) return PromptType.Custom;
         return PromptType.Conventional;
     }
-
 }

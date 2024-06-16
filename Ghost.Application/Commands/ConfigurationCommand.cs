@@ -2,7 +2,7 @@
 using Ghost.Common;
 using Ghost.Infrastructure.Utilities;
 
-namespace Ghost.Application.Commands;
+namespace Ghost.Infrastructure.Commands;
 
 public sealed class ConfigurationCommand
 {
