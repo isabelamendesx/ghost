@@ -15,7 +15,7 @@ public sealed class ConfigurationCommand
         Action action = option.ToLower() switch
         {
             "apikey" => () => TrySetApiKey(),
-            _ => () => Console.WriteLine("Invalid option. Valid options are: apikey")
+            _ => () => Console.WriteLine("👻 Invalid option. Valid options are: apikey")
         };
 
         action();
@@ -23,7 +23,7 @@ public sealed class ConfigurationCommand
 
     private void TrySetApiKey()
     {
-        Console.WriteLine("enter your API Key:");
+        Console.WriteLine("👻 Enter your API Key:");
         string apiKey = SecretReader.Read();
 
         if (!FileManager.Exists(GlobalConfig.ConfigFilePath, "appsettings.json")) return;
@@ -33,6 +33,6 @@ public sealed class ConfigurationCommand
         configFile.TrySetValue("GeminiOptions", "ApiKey", apiKey);
         configFile.WriteInFileInJsonFormat();
 
-        Console.WriteLine("\nAPI key saved successfully");
+        Console.WriteLine("\n👻 API key saved successfully");
     }
 }
