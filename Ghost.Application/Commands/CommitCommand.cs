@@ -48,9 +48,7 @@ public sealed class CommitCommand
 
         var messages = await _geminiService.GetCommitMessages(promptType, stagedChanges, code);
 
-        var selectedMessage = await _mediator.Send(new PickMessageCommand { Messages = messages });
-
-        var result = await _mediator.Send(new ReviewMessageCommand(selectedMessage));
+        var result = await _mediator.Send(new PickMessageCommand { Messages = messages });
 
         if(result) 
             Console.WriteLine("\n✅ Changes committed successfully!");

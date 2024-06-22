@@ -1,11 +1,19 @@
-﻿using MediatR;
+﻿using Ghost.Application.UseCases.ReviewMessage;
+using MediatR;
 using System.Text;
 
 namespace Ghost.Application.UseCases.PickMessage;
 
-public class PickMessageHandler : IRequestHandler<PickMessageCommand, string>
+public class PickMessageHandler : IRequestHandler<PickMessageCommand, bool>
 {
-    public Task<string> Handle(PickMessageCommand request, CancellationToken cancellationToken)
+    private readonly IMediator _mediator;
+
+    public PickMessageHandler(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
+    public async Task<bool> Handle(PickMessageCommand request, CancellationToken cancellationToken)
     {
         var messages = request.Messages;
 
@@ -14,7 +22,7 @@ public class PickMessageHandler : IRequestHandler<PickMessageCommand, string>
 
         var selectedOption = HandleUserInput(messages);
 
-        return Task.FromResult(messages.ElementAt(selectedOption));
+        return await _mediator.Send(new ReviewMessageCommand(messages.ElementAt(selectedOption)));
     }
 
     private static void SetupConsole()
