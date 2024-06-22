@@ -93,8 +93,8 @@ public class PickMessageHandler : IRequestHandler<PickMessageCommand, bool>
 
     private static readonly List<string> BackgroundColors = new List<string>
     {
-        "\u001b[48;5;198m\u001b[97m",
-        "\u001b[48;5;210m\u001b[97m",
-        "\u001b[48;5;205m\u001b[97m"
+    "\u001b[48;5;250m\u001b[30m", // Light gray background with black text
+    "\u001b[48;5;247m\u001b[30m", // Lighter gray background with black text
+    "\u001b[48;5;244m\u001b[30m"  // Even lighter gray background with black text
     };
 }
