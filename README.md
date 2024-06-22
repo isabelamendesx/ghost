@@ -1,4 +1,4 @@
-![Project Logo]("/docs/logo.jpg")
+![Project Logo](/docs/logo.jpg)
 
 # Ghost CLI
 
