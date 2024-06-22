@@ -1,6 +1,6 @@
 ![Project Logo](/docs/ghost-logo.jpg)
 
-# Ghost CLI
+# Ghost CLI 👻
 
 Welcome to **Ghost**! 👻
 
