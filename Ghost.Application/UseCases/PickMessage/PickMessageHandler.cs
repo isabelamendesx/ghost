@@ -46,6 +46,7 @@ public class PickMessageHandler : IRequestHandler<PickMessageCommand, bool>
         while (!isSelected)
         {
             Console.SetCursorPosition(left, top);
+            ClearLines(messages.Count());
             DisplayMessages(messages, selectedOption, decorator);
 
             ConsoleKeyInfo key = Console.ReadKey(intercept: true);
@@ -54,6 +55,15 @@ public class PickMessageHandler : IRequestHandler<PickMessageCommand, bool>
         }
 
         return selectedOption;
+    }
+
+    private static void ClearLines(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Console.WriteLine(new string(' ', Console.WindowWidth));
+        }
+        Console.SetCursorPosition(0, Console.GetCursorPosition().Top - count);
     }
 
     private static void DisplayMessages(IEnumerable<string> messages, int selectedOption, string decorator)
