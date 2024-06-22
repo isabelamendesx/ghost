@@ -1,3 +1,5 @@
+![Project Logo]("/docs/logo.jpg")
+
 # Ghost CLI
 
 Welcome to **Ghost**! 👻
