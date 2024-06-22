@@ -1,6 +1,7 @@
 ﻿using Cocona;
 using Ghost.Common;
 using Ghost.Infrastructure.Utilities;
+using System.Text;
 
 namespace Ghost.Infrastructure.Commands;
 
@@ -23,6 +24,7 @@ public sealed class ConfigurationCommand
 
     private void TrySetApiKey()
     {
+        Console.OutputEncoding = Encoding.UTF8;
         Console.WriteLine("👻 Enter your API Key:");
         string apiKey = SecretReader.Read();
 

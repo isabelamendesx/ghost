@@ -20,7 +20,7 @@ public class ExceptionHandlingFilterAttribute : CommandFilterAttribute
             Console.WriteLine("API request failed. Please check your network connection and try again.");
             return 1;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             Console.WriteLine($"An unexpected error ocurred, please try again");
             return 1;
