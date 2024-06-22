@@ -8,7 +8,7 @@ public class EditMessageHandler : IRequestHandler<EditMessageCommand, string>
     public Task<string> Handle(EditMessageCommand request, CancellationToken cancellationToken)
     {
         Console.Clear();
-       Console.WriteLine("👻 Edit the message as you wish:");
+        Console.WriteLine("👻 Edit the message as you wish:");
         return Task.FromResult(EditString(request.Message));
     }
 
@@ -18,6 +18,7 @@ public class EditMessageHandler : IRequestHandler<EditMessageCommand, string>
         int cursorPosition = buffer.Length;
 
         Console.Write(initialText);
+        Console.CursorVisible = true;
 
         while (true)
         {
@@ -60,6 +61,7 @@ public class EditMessageHandler : IRequestHandler<EditMessageCommand, string>
 
                 case ConsoleKey.Enter:
                     Console.WriteLine();
+                    Console.CursorVisible = false;
                     return buffer.ToString();
 
                 default:
@@ -76,8 +78,11 @@ public class EditMessageHandler : IRequestHandler<EditMessageCommand, string>
 
     static void RedrawBuffer(StringBuilder buffer, int cursorPosition)
     {
-        Console.SetCursorPosition(0, Console.CursorTop);
-        Console.Write(buffer.ToString() + " ");
-        Console.SetCursorPosition(cursorPosition, Console.CursorTop);
+        int currentLineCursor = Console.CursorTop;
+        Console.SetCursorPosition(0, currentLineCursor);
+        Console.Write(new string(' ', Console.WindowWidth)); // Clear the line
+        Console.SetCursorPosition(0, currentLineCursor);
+        Console.Write(buffer.ToString());
+        Console.SetCursorPosition(cursorPosition, currentLineCursor);
     }
 }
