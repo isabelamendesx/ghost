@@ -8,10 +8,10 @@ Ghost is a powerful and fun tool built in .NET to help you magically create your
 
 ## Key Features
 
-🚀 Automatic commit messages: Use Google's Gemini AI to generate contextual and impressive commit messages.
-🎨 Customizable templates: Choose from a variety of templates to give your commit messages the perfect touch.
-⚡ Simple and efficient: Boost your productivity by letting Ghost handle your commit messages while you focus on the code.
-✏️ Choose and edit commit messages: Select from three generated commit messages and edit them to fit your needs perfectly.
+- 🚀 **Automatic commit messages:** Use Google's Gemini AI to generate contextual and impressive commit messages.
+- 🎨 **Customizable templates:** Choose from a variety of templates to give your commit messages the perfect touch.
+- ⚡ **Simple and efficient:** Boost your productivity by letting Ghost handle your commit messages while you focus on the code.
+- ✏️ **Choose and edit commit messages:** Select from three generated commit messages and edit them to fit your needs perfectly.
 
 ## Usage
 
