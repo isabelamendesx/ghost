@@ -56,7 +56,7 @@ custom(scope): personalized commit message
 
 ### Step 1: Download Ghost CLI
 
-First, you need to download the zip file containing the Ghost CLI executable for your operating system. You can find the download link on the [releases page](#).
+First, you need to download the zip file containing the Ghost CLI executable for your operating system. You can find the download link on the [releases page](https://github.com/isabelamendesx/ghost/releases).
 
 ### Step 2: Extract the File
 
@@ -78,8 +78,6 @@ sudo mkdir -p /usr/local/Ghost
 ``` sh
 sudo tar -xzf caminho/para/o/arquivo.zip -C /usr/local/Ghost
 ```
-
-### Passo 3: Configurar a variável de ambiente
 
 ### Step 3: Set Up the Environment Variable
 
