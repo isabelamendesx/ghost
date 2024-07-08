@@ -1,8 +1,8 @@
-﻿namespace Ghost.Infrastructure.Factories;
+﻿using Ghost.Infrastructure.Models.Enum;
+
+namespace Ghost.Infrastructure.Factories;
 
 public interface IPromptFactory
 {
-    string CreateCommitStartingWithCodePrompt(string gitdiff, string code);
-    string CreateConventionalCommitPrompt(string gitdiff);
-    string CreateCustomCommitPrompt(string gitdiff);
+    string CreateCommitPrompt(PromptType promptType, string stagedChanges);
 }

@@ -19,13 +19,7 @@ public class GeminiService : IGeminiService
 
     public async Task<List<string>> GetCommitMessages(PromptType promptType, string stagedChanges, string? code = null)
     {
-        string prompt = promptType switch
-        {
-            PromptType.Conventional => _promptFactory.CreateConventionalCommitPrompt(stagedChanges),
-            PromptType.StartingWithCode => _promptFactory.CreateCommitStartingWithCodePrompt(stagedChanges, code!),
-            PromptType.Custom => _promptFactory.CreateCustomCommitPrompt(stagedChanges),
-            _ => throw new ArgumentOutOfRangeException(nameof(promptType), promptType, null)
-        };
+        string prompt = _promptFactory.CreateCommitPrompt(promptType, stagedChanges);
 
         var generationConfig = new GenerationConfigBuilder()
                             .WithTemperature((float)0.5)
@@ -33,11 +27,7 @@ public class GeminiService : IGeminiService
 
         var response = await _gemini.SendTextPrompt(prompt, generationConfig);
 
-        return SplitCommitMessages(response.Candidates![0].Content.Parts[0]);
-    }
-
-    private List<string> SplitCommitMessages(string messages)
-    {
-        return messages.Split(',').ToList();
+        var formatter = MessageFormatterFactory.GetFormatter(promptType);
+        return formatter.Format(response.Candidates![0].Content.Parts[0], code);
     }
 }

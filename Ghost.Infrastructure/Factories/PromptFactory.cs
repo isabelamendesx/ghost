@@ -1,5 +1,4 @@
-﻿using Ghost.Infrastructure.Factories;
-using Ghost.Infrastructure.Models;
+﻿using Ghost.Infrastructure.Models;
 using Ghost.Infrastructure.Models.Enum;
 using Ghost.Infrastructure.Repositories;
 using System.Text;
@@ -15,32 +14,20 @@ public class PromptFactory : IPromptFactory
         _repository = repository;
     }
 
-    public string CreateConventionalCommitPrompt(string stagedChanges)
+    public string CreateCommitPrompt(PromptType promptType, string stagedChanges)
     {
-        var template = _repository.GetPromptByName(PromptType.Conventional);
+        var template = _repository.GetPromptByName(promptType);
         return BuildPrompt(template, stagedChanges);
     }
 
-    public string CreateCommitStartingWithCodePrompt(string stagedChanges, string code)
-    {
-        var template = _repository.GetPromptByName(PromptType.StartingWithCode);
-        return BuildPrompt(template, stagedChanges, code);
-    }
-
-    public string CreateCustomCommitPrompt(string stagedChanges)
-    {
-        var template = _repository.GetPromptByName(PromptType.Custom);
-        return BuildPrompt(template, stagedChanges);
-    }
-
-    private string BuildPrompt(Prompt prompt, string stagedChanges, string? code = null)
+    private string BuildPrompt(Prompt prompt, string stagedChanges)
     {
         var builder = new StringBuilder();
 
         var actions = new List<Action>
         {
             () => builder.AppendLine(prompt.Introduction.Replace("{stagedChanges}", stagedChanges)),
-            () => AddFormat(builder, prompt.Format, code),
+            () => AddFormat(builder, prompt.Format),
             () => AddSection(builder, "Types:", prompt.Types!),
             () => AddSection(builder, "Specification:", prompt.Specification),
             () => builder.AppendLine(prompt.Footer)
@@ -51,10 +38,10 @@ public class PromptFactory : IPromptFactory
         return builder.ToString();
     }
 
-    private void AddFormat(StringBuilder builder, string format, string? code)
+    private void AddFormat(StringBuilder builder, string format)
     {
         if (!string.IsNullOrWhiteSpace(format))
-            builder.AppendLine(!string.IsNullOrWhiteSpace(code) ? format.Replace("{code}", code) : format);
+            builder.AppendLine(format);
     }
 
     private void AddSection(StringBuilder builder, string sectionTitle, List<string> sectionItems)
