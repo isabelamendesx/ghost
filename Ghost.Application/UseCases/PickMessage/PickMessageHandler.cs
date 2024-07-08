@@ -1,4 +1,5 @@
-﻿using Ghost.Application.UseCases.ReviewMessage;
+﻿using Figgle;
+using Ghost.Application.UseCases.ReviewMessage;
 using MediatR;
 using System.Text;
 
@@ -18,12 +19,12 @@ public class PickMessageHandler : IRequestHandler<PickMessageCommand, bool>
     {
         var commitMessages = request.Messages;
 
-        SetUpConsole();
+        InitializeConsole();
         var selectedOption = DisplayMenu(commitMessages);
         return await _mediator.Send(new ReviewMessageCommand(commitMessages.ElementAt(selectedOption)));
     }
 
-    private static void SetUpConsole()
+    private static void InitializeConsole()
     {
         Console.OutputEncoding = Encoding.UTF8;
         Console.CursorVisible = false;
@@ -36,16 +37,17 @@ public class PickMessageHandler : IRequestHandler<PickMessageCommand, bool>
         for (int i = 0; i < commitMessages.Count; i++)
         {
             Console.ResetColor();
-;
             if (i == currentSelectionIndex)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"> {commitMessages[i]}");
-                continue;
             }
-
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine($"  {commitMessages[i]}");
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine($"  {commitMessages[i]}");
+            }
+            Console.ResetColor();
         }
     }
 
