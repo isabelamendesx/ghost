@@ -7,6 +7,7 @@ namespace Ghost.Application.UseCases.PickMessage;
 public class PickMessageHandler : IRequestHandler<PickMessageCommand, bool>
 {
     private readonly IMediator _mediator;
+    private static int currentSelectionIndex = 0;
 
     public PickMessageHandler(IMediator mediator)
     {
@@ -15,86 +16,61 @@ public class PickMessageHandler : IRequestHandler<PickMessageCommand, bool>
 
     public async Task<bool> Handle(PickMessageCommand request, CancellationToken cancellationToken)
     {
-        var messages = request.Messages;
+        var commitMessages = request.Messages;
 
-        SetupConsole();
-        DisplayInstructions();
-
-        var selectedOption = HandleUserInput(messages);
-
-        return await _mediator.Send(new ReviewMessageCommand(messages.ElementAt(selectedOption)));
+        SetUpConsole();
+        var selectedOption = DisplayMenu(commitMessages);
+        return await _mediator.Send(new ReviewMessageCommand(commitMessages.ElementAt(selectedOption)));
     }
 
-    private static void SetupConsole()
+    private static void SetUpConsole()
     {
         Console.OutputEncoding = Encoding.UTF8;
         Console.CursorVisible = false;
     }
 
-    private static void DisplayInstructions()
+    private static void DisplayCommitMessages(List<string> commitMessages)
     {
         Console.WriteLine("👻 Pick up a commit message:");
-    }
 
-    private static int HandleUserInput(IEnumerable<string> messages)
-    {
-        (int left, int top) = Console.GetCursorPosition();
-        int selectedOption = 0;
-        const string decorator = "> ";
-        bool isSelected = false;
-
-        while (!isSelected)
+        for (int i = 0; i < commitMessages.Count; i++)
         {
-            Console.SetCursorPosition(left, top);
-            ClearLines(messages.Count());
-            DisplayMessages(messages, selectedOption, decorator);
+            Console.ResetColor();
+;
+            if (i == currentSelectionIndex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($"> {commitMessages[i]}");
+                continue;
+            }
 
-            ConsoleKeyInfo key = Console.ReadKey(intercept: true);
-            selectedOption = UpdateSelectedOption(key, selectedOption, messages.Count());
-            isSelected = key.Key == ConsoleKey.Enter;
-        }
-
-        return selectedOption;
-    }
-
-    private static void ClearLines(int count)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            Console.WriteLine(new string(' ', Console.WindowWidth));
-        }
-        Console.SetCursorPosition(0, Console.GetCursorPosition().Top - count);
-    }
-
-    private static void DisplayMessages(IEnumerable<string> messages, int selectedOption, string decorator)
-    {
-        for (int i = 0; i < messages.Count(); i++)
-        {
-            var message = messages.ElementAt(i).Trim();
-            var backgroundColor = BackgroundColors[i % BackgroundColors.Count];
-            var coloredOption = $"{backgroundColor}[{i + 1}]\u001b[0m";
-            var messageColor = selectedOption == i ? "\u001b[90m" : "";
-            Console.WriteLine($"{(selectedOption == i ? decorator : "  ")}{coloredOption} {messageColor}{message}\u001b[0m");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine($"  {commitMessages[i]}");
         }
     }
 
-    private static int UpdateSelectedOption(ConsoleKeyInfo key, int currentOption, int messageCount)
+    private static int DisplayMenu(List<string> commitMessages)
     {
-        switch (key.Key)
+        ConsoleKeyInfo key;
+        do
         {
-            case ConsoleKey.UpArrow:
-                return currentOption == 0 ? messageCount - 1 : currentOption - 1;
-            case ConsoleKey.DownArrow:
-                return currentOption == messageCount - 1 ? 0 : currentOption + 1;
-            default:
-                return currentOption;
-        }
-    }
+            Console.Clear();
+            DisplayCommitMessages(commitMessages);
 
-    private static readonly List<string> BackgroundColors = new List<string>
-    {
-    "\u001b[48;5;250m\u001b[30m", // Light gray background with black text
-    "\u001b[48;5;247m\u001b[30m", // Lighter gray background with black text
-    "\u001b[48;5;244m\u001b[30m"  // Even lighter gray background with black text
-    };
+            key = Console.ReadKey(intercept: true);
+
+            switch (key.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    currentSelectionIndex = Math.Max(0, currentSelectionIndex - 1);
+                    break;
+
+                case ConsoleKey.DownArrow:
+                    currentSelectionIndex = Math.Min(commitMessages.Count() - 1, currentSelectionIndex + 1);
+                    break;
+            }
+        } while (key.Key != ConsoleKey.Enter);
+
+        return currentSelectionIndex;
+    }
 }
