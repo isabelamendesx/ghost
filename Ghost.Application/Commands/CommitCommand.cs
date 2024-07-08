@@ -40,8 +40,6 @@ public sealed class CommitCommand
 
     private async Task ProcessCommitMessage(PromptType promptType, string stagedChanges, string? code)
     {
-        Console.WriteLine(FiggleFonts.Standard.Render("Ghost."));
-
         var messages = await _geminiService.GetCommitMessages(promptType, stagedChanges, code);
 
         var result = await _mediator.Send(new PickMessageCommand { Messages = messages });
