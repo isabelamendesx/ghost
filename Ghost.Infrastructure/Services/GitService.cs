@@ -1,6 +1,5 @@
 ﻿using CliWrap.Exceptions;
 using CliWrap;
-using Ghost.Infrastructure.Services;
 using CliWrap.Buffered;
 
 namespace Ghost.Infrastructure.Services;

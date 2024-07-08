@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using System.IO;
-
-namespace Ghost.Infrastructure.Utilities;
+﻿namespace Ghost.Infrastructure.Utilities;
 
 public static class FileManager
 {
